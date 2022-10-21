@@ -63,7 +63,7 @@ async fn subscribe_returns_a_400_when_data_is_missing() {
         ("email=ursula_le_guin%40gmail.com", "missing the name"),
         ("", "missing both name and email"),
     ];
-    
+
     for (invalid_body, error_message) in test_cases {
         // Act
         let response = client

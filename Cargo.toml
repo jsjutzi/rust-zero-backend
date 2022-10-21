@@ -16,3 +16,4 @@ name = "zero2prod"
 actix-web = "4"
 tokio = {version = "1", features=["macros", "rt-multi-thread"]}
 reqwest = "*"
+serde = {version = "1", features = ["derive"]}
