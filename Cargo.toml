@@ -17,6 +17,7 @@ actix-web = "4"
 tokio = {version = "1", features=["macros", "rt-multi-thread"]}
 reqwest = "*"
 serde = {version = "1", features = ["derive"]}
+config = "0.13"
 
 [dependencies.sqlx] 
 version = "0.6" 
