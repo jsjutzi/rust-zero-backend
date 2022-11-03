@@ -105,6 +105,3 @@ async fn subscribe_returns_a_400_when_data_is_missing() {
         );
     }
 }
-
-
-// TODO: Finish setting up github actions for ci/cd pipelines
