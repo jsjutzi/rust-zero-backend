@@ -10,6 +10,7 @@ pub struct FormData {
     name: String,
 }
 
+// Implementing the TryFrom trait gives us the reverse TryInto for free
 impl TryFrom<FormData> for NewSubscriber {
     type Error = String;
 

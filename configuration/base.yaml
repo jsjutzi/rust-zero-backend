@@ -7,3 +7,13 @@ database:
   username: "postgres"
   password: "password"
   database_name: "newsletter"
+
+email_client:
+  # Value retrieved from Postmark's API documentation
+  # base_url: "https://api.postmarkapp.com"
+  base_url: "localhost"
+  # Use the single sender email we have authorized
+  # Using non-public email as required, but this needs to be changed to a domain we control if we scale.
+  sender_email: jjutzi@wgu.edu
+  authorization_token: "local-dummy-token"
+  timeout_milliseconds: 10000
