@@ -78,7 +78,6 @@ mod tests {
     use fake::faker::lorem::en::{Paragraph, Sentence};
     use fake::{Fake, Faker};
     use secrecy::Secret;
-    use tracing::Subscriber;
     use wiremock::matchers::{any, header, header_exists, method, path};
     use wiremock::Request;
     use wiremock::{Mock, MockServer, ResponseTemplate};
