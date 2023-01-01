@@ -1,5 +1,5 @@
 use crate::domain::{NewSubscriber, SubscriberEmail, SubscriberName};
-use crate::email_client::{EmailClient};
+use crate::email_client::EmailClient;
 use actix_web::{web, HttpResponse};
 use chrono::Utc;
 use sqlx::PgPool;

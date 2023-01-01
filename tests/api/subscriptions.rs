@@ -96,5 +96,4 @@ async fn subscribe_sends_a_confirmation_email_for_valid_data() {
 
     // Assert
     // Mock asserts on drop
-
 }
