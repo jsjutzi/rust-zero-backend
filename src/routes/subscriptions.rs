@@ -67,7 +67,7 @@ pub async fn subscribe(
     if transaction.commit().await.is_err() {
         return HttpResponse::InternalServerError().finish();
     }
-    
+
     if send_confirmation_email(
         &email_client,
         new_subscriber,
