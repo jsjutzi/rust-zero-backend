@@ -2,3 +2,8 @@ application:
   host: 0.0.0.0
 database:
   require_ssl: true
+email_client:
+  # Value retrieved from Postmark's API documentation
+  base_url: "https://api.postmarkapp.com"
+  # Authorized email for Postmark API
+  sender_email: jjutzi@wgu.edu
