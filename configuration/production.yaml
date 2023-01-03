@@ -5,5 +5,3 @@ database:
 email_client:
   # Value retrieved from Postmark's API documentation
   base_url: "https://api.postmarkapp.com"
-  # Authorized email for Postmark API
-  sender_email: jjutzi@wgu.edu
