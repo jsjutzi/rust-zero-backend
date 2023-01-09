@@ -1,6 +1,6 @@
 # rust-zero-backend
 
-This Rust backend allows a consumer to subscribe to a newsletter, confirm that subscription via a unique confirmation link emailed to them, then receive new issues of the news letter in HTML & Plain Text format to their email address on file.
+This Rust backend allows a consumer to subscribe to a newsletter, confirm that subscription via a unique confirmation link emailed to them, then receive new issues of the newsletter in HTML & Plain Text format to their email address on file.
 
 The project is built in Rust using Actix-Web and runs on a Tokio runtime with a PostgreSQL database implementaion. It includes full CI/CD integration via Github Actions and is deployed to the cloud with Docker on Digital Ocean.  
 
