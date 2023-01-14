@@ -28,7 +28,7 @@ pub struct TestApp {
     pub db_pool: PgPool,
     pub email_server: MockServer,
     pub port: u16,
-    test_user: TestUser,
+    pub test_user: TestUser,
 }
 
 pub struct TestUser {
@@ -97,7 +97,7 @@ pub async fn spawn_app() -> TestApp {
         port: application_port,
         db_pool: get_connection_pool(&configuration.database),
         email_server,
-        test_user: TestUser::generate(),
+        test_user: TestUser::generate()
     };
 
     test_app.test_user.store(&test_app.db_pool).await;
@@ -176,7 +176,7 @@ impl TestUser {
 
         sqlx::query!(
             "INSERT INTO users (user_id, username, password_hash)
-            VALUES($1, $2, $3)",
+            VALUES ($1, $2, $3)",
             self.user_id,
             self.username,
             password_hash,
