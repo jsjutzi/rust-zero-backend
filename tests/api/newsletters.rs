@@ -1,7 +1,7 @@
 use crate::helpers::{spawn_app, ConfirmationLinks, TestApp};
+use uuid::Uuid;
 use wiremock::matchers::{any, method, path};
 use wiremock::{Mock, ResponseTemplate};
-use uuid::Uuid;
 
 #[tokio::test]
 async fn newsletters_are_not_delivered_to_unconfirmed_subscribers() {
@@ -188,7 +188,7 @@ async fn non_existing_user_is_rejected() {
         .await
         .expect("Failed to execute request.");
 
-    // Assert 
+    // Assert
     assert_eq!(401, response.status().as_u16());
     assert_eq!(
         r#"Basic realm="publish""#,
@@ -204,7 +204,7 @@ async fn invalid_password_is_rejected() {
 
     // Random password
     let password = Uuid::new_v4().to_string();
-    assert_ne!(app.test_user.password,password);
+    assert_ne!(app.test_user.password, password);
 
     let response = reqwest::Client::new()
         .post(&format!("{}/newsletters", &app.address))
@@ -221,7 +221,7 @@ async fn invalid_password_is_rejected() {
         .expect("Failed to execute request.");
 
     // Assert
-    assert_eq!(401, response.status().as_u16()); 
+    assert_eq!(401, response.status().as_u16());
     assert_eq!(
         r#"Basic realm="publish""#,
         response.headers()["WWW-Authenticate"]
