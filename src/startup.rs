@@ -3,6 +3,7 @@ use crate::email_client::EmailClient;
 use crate::routes::{
     confirm, health_check, home, login, login_form, publish_newsletter, subscribe,
 };
+use secrecy::Secret;
 use sqlx::postgres::PgPoolOptions;
 
 use actix_web::dev::Server;
@@ -19,11 +20,15 @@ pub struct Application {
 
 pub struct ApplicationBaseUrl(pub String);
 
+#[derive(Clone)]
+pub struct HmacSecret(pub Secret<String>);
+
 pub fn run(
     listener: TcpListener,
     db_pool: PgPool,
     email_client: EmailClient,
     base_url: String,
+    hmac_secret: Secret<String>,
 ) -> Result<Server, std::io::Error> {
     // We have to wrap connection in an Arc<T> so that every new worker
     // points to the same connection stored on the Heap
@@ -44,6 +49,7 @@ pub fn run(
             .app_data(db_pool.clone())
             .app_data(email_client.clone())
             .app_data(base_url.clone())
+            .app_data(Data::new(HmacSecret(hmac_secret.clone())))
     })
     .listen(listener)?
     .run();
@@ -81,6 +87,7 @@ impl Application {
             connection_pool,
             email_client,
             configuration.application.base_url,
+            configuration.application.hmac_secret,
         )?;
 
         Ok(Self { port, server })
