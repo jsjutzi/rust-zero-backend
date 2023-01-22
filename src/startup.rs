@@ -1,9 +1,11 @@
+use crate::authentication::reject_anonymous_users;
 use crate::configuration::{DatabaseSettings, Settings};
 use crate::email_client::EmailClient;
 use crate::routes::{
     admin_dashboard, change_password, change_password_form, confirm, health_check, home, log_out,
     login, login_form, publish_newsletter, subscribe,
 };
+use actix_web_lab::middleware::from_fn;
 use secrecy::{ExposeSecret, Secret};
 use sqlx::postgres::PgPoolOptions;
 
@@ -64,10 +66,14 @@ pub async fn run(
             .route("/", web::get().to(home))
             .route("/login", web::get().to(login_form))
             .route("/login", web::post().to(login))
-            .route("/admin/password", web::get().to(change_password_form))
-            .route("/admin/password", web::post().to(change_password))
-            .route("/admin/dashboard", web::get().to(admin_dashboard))
-            .route("/admin/logout", web::post().to(log_out))
+            .service(
+                web::scope("/admin")
+                    .wrap(from_fn(reject_anonymous_users))
+                    .route("/password", web::get().to(change_password_form))
+                    .route("/password", web::post().to(change_password))
+                    .route("/dashboard", web::get().to(admin_dashboard))
+                    .route("/logout", web::post().to(log_out)),
+            )
             .app_data(db_pool.clone())
             .app_data(email_client.clone())
             .app_data(base_url.clone())
