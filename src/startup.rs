@@ -3,7 +3,7 @@ use crate::configuration::{DatabaseSettings, Settings};
 use crate::email_client::EmailClient;
 use crate::routes::{
     admin_dashboard, change_password, change_password_form, confirm, health_check, home, log_out,
-    login, login_form, publish_newsletter, subscribe,
+    login, login_form, publish_newsletter, publish_newsletter_form, subscribe,
 };
 use actix_web_lab::middleware::from_fn;
 use secrecy::{ExposeSecret, Secret};
@@ -71,6 +71,8 @@ pub async fn run(
                     .wrap(from_fn(reject_anonymous_users))
                     .route("/password", web::get().to(change_password_form))
                     .route("/password", web::post().to(change_password))
+                    .route("/newsletters", web::get().to(publish_newsletter_form))
+                    .route("/newsletters", web::post().to(publish_newsletter))
                     .route("/dashboard", web::get().to(admin_dashboard))
                     .route("/logout", web::post().to(log_out)),
             )
