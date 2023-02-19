@@ -1,5 +1,18 @@
 {
   "db": "PostgreSQL",
+  "038c5c4d2c3e1914b21ca69af30c21b8f4e832af02101c8a66ed3bedf656e12e": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Uuid",
+          "Text"
+        ]
+      }
+    },
+    "query": "\n        INSERT INTO idempotency (\n            user_id,\n            idempotency_key,\n            created_at \n        )\n        VALUES ($1, $2, now())\n        ON CONFLICT DO NOTHING\n        "
+  },
   "33b11051e779866db9aeb86d28a59db07a94323ffdc59a5a2c1da694ebe9a65f": {
     "describe": {
       "columns": [
@@ -20,7 +33,7 @@
     },
     "query": "\n        SELECT username\n        FROM users\n        WHERE user_id = $1\n        "
   },
-  "429f0897a3c43dca32af247947c1ddd6d6ddb3240e39400ebd68f60cc6f07bbd": {
+  "38ba903ad605b1dcbbae874b3bda0833c360ea3a31a7944a49aaab37cf3799aa": {
     "describe": {
       "columns": [],
       "nullable": [],
@@ -57,18 +70,18 @@
         ]
       }
     },
-    "query": "\n        INSERT INTO idempotency (\n            user_id,\n            idempotency_key,\n            response_status_code,\n            response_headers,\n            response_body,\n            created_at\n        )\n        VALUES ($1, $2, $3, $4, $5, now())\n        "
+    "query": "\n        UPDATE idempotency\n        SET\n            response_status_code = $3,\n            response_headers = $4,\n            response_body = $5\n        WHERE\n            user_id = $1 AND\n            idempotency_key = $2\n        "
   },
-  "5a652ef1a69f01918aa5974c00aa9b06a3a76d8cc736706792de2f4c82b4d383": {
+  "730599fdb14ed2360ec274baab81199c3596146766b790f92c22a3f985ad7802": {
     "describe": {
       "columns": [
         {
-          "name": "response_status_code",
+          "name": "response_status_code!",
           "ordinal": 0,
           "type_info": "Int2"
         },
         {
-          "name": "response_headers: Vec<HeaderPairRecord>",
+          "name": "response_headers!: Vec<HeaderPairRecord>",
           "ordinal": 1,
           "type_info": {
             "Custom": {
@@ -96,15 +109,15 @@
           }
         },
         {
-          "name": "response_body",
+          "name": "response_body!",
           "ordinal": 2,
           "type_info": "Bytea"
         }
       ],
       "nullable": [
-        false,
-        false,
-        false
+        true,
+        true,
+        true
       ],
       "parameters": {
         "Left": [
@@ -113,7 +126,7 @@
         ]
       }
     },
-    "query": "\n        SELECT\n            response_status_code,\n            response_headers as \"response_headers: Vec<HeaderPairRecord>\",\n            response_body\n        FROM idempotency\n        WHERE\n          user_id = $1 AND\n          idempotency_key = $2\n        "
+    "query": "\n        SELECT\n            response_status_code as \"response_status_code!\",\n            response_headers as \"response_headers!: Vec<HeaderPairRecord>\",\n            response_body as \"response_body!\"\n        FROM idempotency\n        WHERE\n          user_id = $1 AND\n          idempotency_key = $2\n        "
   },
   "7b57e2776a245ba1602f638121550485e2219a6ccaaa62b5ec3e4683e33a3b5f": {
     "describe": {
