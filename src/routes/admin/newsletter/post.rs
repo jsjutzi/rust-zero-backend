@@ -1,7 +1,5 @@
 use crate::authentication::UserId;
-use crate::idempotency::{
-    save_response, try_processing, IdempotencyKey, NextAction,
-};
+use crate::idempotency::{save_response, try_processing, IdempotencyKey, NextAction};
 use crate::utils::e400;
 use crate::utils::{e500, see_other};
 use actix_web::web::ReqData;
@@ -50,15 +48,10 @@ pub async fn publish_newsletter(
         }
     };
 
-    let issue_id = insert_newsletter_issue(
-        &mut transaction, 
-        &title, 
-        &text_content, 
-        &html_content
-    )
-    .await
-    .context("Failed to store newsletter issue details")
-    .map_err(e500)?;
+    let issue_id = insert_newsletter_issue(&mut transaction, &title, &text_content, &html_content)
+        .await
+        .context("Failed to store newsletter issue details")
+        .map_err(e500)?;
 
     enqueue_delivery_tasks(&mut transaction, issue_id)
         .await
@@ -69,7 +62,7 @@ pub async fn publish_newsletter(
     let response = save_response(transaction, &idempotency_key, *user_id, response)
         .await
         .map_err(e500)?;
-    
+
     success_message().send();
     Ok(response)
 }
