@@ -17,7 +17,7 @@ pub async fn confirm(
 ) -> Result<HttpResponse, ConfirmationError> {
     let subscriber_id = get_subscriber_id_from_token(&pool, &parameters.subscription_token)
         .await
-        .context("FAiled to retrieve the subscriber id assocaited with the provided token.")?
+        .context("Failed to retrieve the subscriber id assocaited with the provided token.")?
         .ok_or(ConfirmationError::UnknownToken)?;
 
     confirm_subscriber(&pool, subscriber_id)
