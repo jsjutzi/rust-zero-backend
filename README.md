@@ -1,3 +1,9 @@
+Rust Newsletter API Service
+
+This is a scalabe, fault-tolerant backend api service built in Rust that allows users to subscribe to a newsletter, confirm that subscription via a unique confirmation link sent to their email, then receive published newsletters.
+
+Conversely, the service allows admin accounts to type and publish newsletters to subscribers, reset passwords.
+
 ## Pre-requisites
 
 You'll need to install:
@@ -88,7 +94,7 @@ Launch `cargo`:
 cargo test 
 ```
 
-These planned contributions and enhancements were planned but are currently paused indefinitely due to time constraints:
+These planned contributions and enhancements are currently paused indefinitely due to time constraints:
 
     1. Implementation of load testing
     2. Implementation of expiration mechanism for Idempotency keys.
