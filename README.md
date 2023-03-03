@@ -1,4 +1,4 @@
-Rust Newsletter API Service
+# Rust Newsletter API Service
 
 This is a scalabe, fault-tolerant backend api service built in Rust that allows users to subscribe to a newsletter, confirm that subscription via a unique confirmation link sent to their email, then receive published newsletters.
 
