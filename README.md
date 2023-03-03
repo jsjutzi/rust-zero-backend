@@ -1,13 +1,96 @@
-# rust-zero-backend
+## Pre-requisites
 
-This Rust backend allows a consumer to subscribe to a newsletter, confirm that subscription via a unique confirmation link emailed to the end user, then post new issues of the newsletter in HTML & Plain Text format that are distributed to all confirmed subscribers via Postmark.
+You'll need to install:
 
-The project is built in Rust using Actix-Web and runs on a Tokio runtime with a PostgreSQL database implementaion. It includes full CI/CD integration via Github Actions and is deployed to the cloud with Docker on Digital Ocean.  
+- [Rust](https://www.rust-lang.org/tools/install)
+- [Docker](https://docs.docker.com/get-docker/)
 
-Test support includes unit & integration test suites.
+There are also some OS-specific requirements.
 
-Note: This project is in progress and not yet complete.  As such, utilizing the publicly deployed endpoints will subscribe you to the newsletter and register you in the database, but you will not receive a valid confirmation email and link to complete your subscription yet.  Keep in mind these api's are not yet secured and should not be consumed publicly with any personal information, even your email.
+### Windows
+  
+```bash
+cargo install -f cargo-binutils
+rustup component add llvm-tools-preview
+```
 
-This project should be MVP complete and production ready Feb 2023.  
+```
+cargo install --version="~0.6" sqlx-cli --no-default-features --features rustls,postgres
+```
 
-Full API documentation, Rustdoc, and expanded ReadMe details will be added once project is 1.0 and production ready.
+### Linux
+
+```bash
+# Ubuntu 
+sudo apt-get install lld clang libssl-dev postgresql-client
+# Arch 
+sudo pacman -S lld clang postgresql
+```
+
+```
+cargo install --version="~0.6" sqlx-cli --no-default-features --features rustls,postgres
+```
+
+### MacOS
+
+```bash
+brew install michaeleisel/zld/zld
+```
+
+```
+cargo install --version="~0.6" sqlx-cli --no-default-features --features rustls,postgres
+```
+
+## How to build
+
+Launch a (migrated) Postgres database via Docker:
+
+```bash
+./scripts/init_db.sh
+```
+
+Launch a Redis instance via Docker:
+
+```bash
+./scripts/init_redis.sh
+```
+
+Launch `cargo`:
+
+```bash
+cargo build
+```
+
+You can now try with opening a browser on http://127.0.0.1:8000/login after
+having launch the web server with `cargo run`.
+
+There is a default `admin` account with password
+`everythinghastostartsomewhere`. The available entrypoints are listed in
+[src/startup.rs](https://github.com/jsjutzi/rust-zero-backend/blob/master/src/startup.rs#L62)
+
+## How to test
+
+Launch a (migrated) Postgres database via Docker:
+
+```bash
+./scripts/init_db.sh
+```
+
+Launch a Redis instance via Docker:
+
+```bash
+./scripts/init_redis.sh
+```
+
+Launch `cargo`:
+
+```bash
+cargo test 
+```
+
+These planned contributions and enhancements were planned but are currently paused indefinitely due to time constraints:
+
+    1. Implementation of load testing
+    2. Implementation of expiration mechanism for Idempotency keys.
+    3. Swagger API documentation
+    4. Rustdoc implementation
