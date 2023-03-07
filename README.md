@@ -2,7 +2,9 @@
 
 This is a scalabe, fault-tolerant backend api service built in Rust that allows users to subscribe to a newsletter, confirm that subscription via a unique confirmation link sent to their email, then receive published newsletters.
 
-Conversely, the service allows admin accounts to type and publish newsletters to subscribers, reset passwords.
+Conversely, the service allows admin accounts to login, type and publish newsletters to subscribers, and reset their password if needed.  
+
+Authentication is session-based, we ensure request uniqueness with idempotency keys, and data integrity is achieved through transactionality and atomic principles.    
 
 ## Pre-requisites
 
