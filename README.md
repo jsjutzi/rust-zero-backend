@@ -2,7 +2,7 @@
 
 This is a scalabe, fault-tolerant backend api service built in Rust that allows users to subscribe to a newsletter, confirm that subscription via a unique confirmation link sent to their email, then receive published newsletters.
 
-Conversely, the service allows admin accounts to login, type and publish newsletters to subscribers, and reset their password if needed.  
+There is also an admin interface allows admin accounts to login, type and publish newsletters to subscribers, and reset their password if needed.  
 
 Authentication is session-based, we ensure request uniqueness with idempotency keys, and data integrity is achieved through transactionality and atomic principles.    
 
@@ -63,14 +63,13 @@ Launch a Redis instance via Docker:
 ./scripts/init_redis.sh
 ```
 
-Launch `cargo`:
+Launch App:
 
 ```bash
-cargo build
+cargo run
 ```
 
-You can now try with opening a browser on http://127.0.0.1:8000/login after
-having launch the web server with `cargo run`.
+You can now try with opening a browser on http://127.0.0.1:8000/login.
 
 There is a default `admin` account with password
 `everythinghastostartsomewhere`. The available entrypoints are listed in
