@@ -101,3 +101,6 @@ These planned contributions and enhancements are currently paused indefinitely d
     2. Implementation of expiration mechanism for Idempotency keys.
     3. Swagger API documentation
     4. Rustdoc implementation
+    
+    
+Shutdown: Effective 03/31/2023 the public production cloud deployment of this application was shut down due to hosting costs, and previously documented public URL's will no longer be reachable.  
